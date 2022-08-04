@@ -104,7 +104,8 @@ COPY ./config/php/php-ini-directives.ini.template /usr/local/etc/php/php-ini-dir
 RUN set -eux ; \
     chmod +x /usr/local/bin/docker-entrypoint; \
     chmod 755 /usr/local/bin/php-fpm-healthcheck ; \
-    composer --ansi --version --no-interaction; \
+    composer --ansi --version --no-interaction; 
+RUN composer config --no-plugins allow-plugins.symfony/flex true \
     composer global require "symfony/flex" --prefer-dist --no-progress --no-suggest --classmap-authoritative; \
 	composer clear-cache;
 

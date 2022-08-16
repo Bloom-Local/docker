@@ -213,15 +213,18 @@ WORKDIR /srv/app
 HEALTHCHECK --start-period=5m CMD curl --fail http://localhost || exit 1
 
 ENV HOST=0.0.0.0
-ENV PORT=80
+ENV PORT=8080
 
 WORKDIR /srv/app
 
 COPY frontend /srv/app/
 
 RUN  set -eux; \
+   apk add --no-cache \
+    python make g++;\
     npm install ; \
     npm run modules:all ; \
+    npm audit fix ; \
     NODE_ENV=production API_BASE_URL=http://localhost:8000/api/v1/ npm run build ; \
     #clean up
     npm cache clean -f ; \
@@ -237,7 +240,6 @@ WORKDIR /srv/app
 COPY frontend/.env.dist frontend/app.versio[n]  ./
 
 CMD ["npm", "run", "start"]
-
 FROM node as docsify
 
 RUN  set -eux; \

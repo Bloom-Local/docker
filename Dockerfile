@@ -193,7 +193,7 @@ ENV NGINX_HTTP_DIRECTIVES="client_max_body_size 250m;"
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["nginx", "-g", "daemon off;"]
 
-FROM node:12.6-alpine as node
+FROM node:14-alpine as node
 
 COPY config/node/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN  set -eux; \

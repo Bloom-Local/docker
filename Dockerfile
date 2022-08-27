@@ -221,7 +221,7 @@ COPY frontend /srv/app/
 
 RUN  set -eux; \
    apk add --no-cache \
-    python make g++;\
+    python3 make g++;\
     npm install ; \
     npm run modules:all ; \
     npm audit fix ; \
